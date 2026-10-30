@@ -1,0 +1,11 @@
+# Conceptos — Desarrollo
+
+El host obtiene un token de su emisor externo y envía las suites disponibles a `POST /v1/challenges`. Las capacidades son orientativas. El servidor selecciona exactamente una suite, con preferencia StrongBox antes de TEE. La generación nunca reintenta con otra suite; si falla, solicite una nueva decisión de política al servidor.
+
+Para registrar, `HardwareKeys.generate` crea una clave P-256 con el nonce decodificado como desafío de atestación, BIOMETRIC_STRONG en cada operación e invalidación al cambiar la inscripción biométrica. La clave privada permanece en Keystore. El nivel local debe coincidir exactamente con la suite. El host exporta la cadena DER con la hoja primero y firma la declaración de registro. El servidor deriva keyId como SHA-256 hexadecimal minúsculo de SubjectPublicKeyInfo DER y valida la atestación de forma independiente. Las comprobaciones locales no sustituyen esa validación.
+
+Para firmar, el host calcula el resumen de los bytes exactos del documento (máximo 512 KiB), obtiene un desafío para su clave y resumen y reconstruye la declaración con issuer/subject de confianza. Compara sus bytes con la declaración del servidor antes de llamar a `BiometricSigner.sign`. Después envía documento original y firma DER. La biometría autoriza la clave; el host debe mostrar el documento y obtener una aprobación significativa.
+
+La declaración tiene nueve campos UTF-8: `sworn-ink/v1`, operación, suite, challengeId, nonce base64 con relleno, issuer, subject, keyId, documentSHA256. Cada campo lleva su longitud en bytes como entero de 32 bits sin signo y big-endian. Registro utiliza documentSHA256 vacío. `SHA256withECDSA` calcula una vez el resumen de la declaración. No hay API para firmar resúmenes directamente.
+
+`HardwareKeys` bloquea y debe ejecutarse en el executor de trabajo del host. `BiometricSigner` pertenece a una FragmentActivity; métodos y callbacks usan el hilo principal. Solo admite una operación pendiente. `onStop` cancela y `onDestroy` cierra. Rotar o enviar al fondo exige un nuevo intento explícito; no se reanuda ni firma automáticamente. El host controla reintentos HTTP, caducidad y persistencia de alias vinculados a cuentas.
