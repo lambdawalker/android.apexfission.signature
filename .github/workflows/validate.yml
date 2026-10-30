@@ -1,0 +1,46 @@
+name: Validate Development
+on:
+  pull_request:
+  push:
+    branches: [main, feat/sworn-ink-signatures]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v4
+      - uses: gradle/actions/setup-gradle@v5
+      - run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+      - run: ./gradlew :protocol:test :signature:testDebugUnitTest :signature:lintDebug :signature:assembleDebug :signature:assembleDebugAndroidTest :examples:integration:assembleDebug
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: android-reports-and-device-test-apk
+          path: |
+            protocol/build/reports/
+            signature/build/reports/
+            signature/build/outputs/apk/androidTest/
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python3 -m pip install -r sites/requirements.txt
+      - run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - run: python3 scripts/docs.py verify
+      - uses: actions/upload-artifact@v7
+        with:
+          name: development-human-and-agent-docs
+          path: sites/dist/

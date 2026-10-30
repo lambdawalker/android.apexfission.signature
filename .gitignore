@@ -1,0 +1,11 @@
+build/
+sites/dist/
+.superpowers/
+*.zip
+.gradle/
+local.properties
+**/build/
+*.iml
+.idea/
+.kotlin/
+__pycache__/
