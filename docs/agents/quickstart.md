@@ -1,6 +1,6 @@
 # Quickstart — Development
 
-Use the source installation in [Installation](installation.md). The compiled `SigningIntegration` fixture defines request/response fields, nonce validation, exact statement comparison and document snapshotting. Add a real HTTPS `SwornInkApi` and `AccessTokens` implementation; configure the server's trusted issuer, audience, scopes, app package and signing certificate. No mock identity or email endpoint is included.
+Use the source installation in [Installation](../../IMPORT.md). The compiled `SigningIntegration` fixture defines request/response fields, nonce validation, exact statement comparison and document snapshotting. Add a real HTTPS `SwornInkApi` and `AccessTokens` implementation; configure the server's trusted issuer, audience, scopes, app package and signing certificate. No mock identity or email endpoint is included.
 
 In your FragmentActivity, construct `HardwareKeys(applicationContext)` and one `BiometricSigner(this, keys)` in `onCreate`. The following is the complete operation sequence using the compiled fixture. `worker` is a host-owned executor; error rendering, document approval and account persistence are host responsibilities. Start authentication only while the activity is resumed. Methods may throw during preparation or before starting the prompt; route those failures to your host error UI.
 

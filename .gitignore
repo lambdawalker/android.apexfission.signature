@@ -9,3 +9,6 @@ local.properties
 .idea/
 .kotlin/
 __pycache__/
+/.project/docs/cache/
+/sites/.astro-app-*/
+/sites/.astro-build-*/

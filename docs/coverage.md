@@ -9,8 +9,8 @@
 | CryptoObject signing and errors | agents/api.md; es/api.md | authenticateRegistration / authenticateSigning | CancellationTest; physical success/manual matrix |
 | Cancellation/lifecycle | agents/concepts.md; es/concepts.md | activity-scoped signer | CancellationTest; rotation/manual matrix |
 | Transport and account binding | agents/quickstart.md; es/quickstart.md | SwornInkApi, Account, request fields | Compiled integration; live server not run |
-| Installation, migration, limits | agents/installation.md; es/installation.md and matching guides | Gradle project dependency | Gradle compilation and docs link/hash checks |
+| Installation, migration, limits | ../IMPORT.md; es/IMPORT.md and matching guides | Gradle project dependency | Gradle compilation and docs link/hash checks |
 
-Source defines APIs; tests define observed behavior. docs/agents is canonical prose; docs/es translates the same Development scope. Release catalog contains no confirmed release. scripts/docs.py generates HTML and raw Markdown; generated output is ignored. docs/source-manifest.json detects reviewed input drift; docs/translations.json detects English changes requiring translation review. These hashes are review reminders, not API compatibility proofs.
+Source defines APIs; tests define observed behavior. docs/agents and IMPORT.md are canonical prose; docs/es translates the same Development scope. Release catalog contains no confirmed release. scripts/docs.py delegates HTML/raw rendering to shared Astro and checks configured legacy aliases; generated output is ignored. docs/source-manifest.json detects reviewed input drift; docs/es/translations.json detects English changes requiring translation review. These hashes are review reminders, not API compatibility proofs.
 
 No owned Compose/application UI exists. OS prompt behavior requires instrumentation/manual device validation; no fabricated screenshot or preview exists. No claimed successful physical validation until a report records the matrix in agents/testing.md.

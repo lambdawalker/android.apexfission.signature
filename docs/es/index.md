@@ -14,4 +14,4 @@ No existe una versión estable publicada y confirmada. Esta guía describe el c�
 
 Invariantes: respetar la suite seleccionada por el servidor; usar un nonce nuevo de 32 bytes para registrar; firmar `Statement.encode()` mediante SHA256withECDSA; codificar binarios HTTP con base64 estándar y relleno; vincular la cuenta a issuer/subject, nunca al correo. Conservar los bytes exactos de la declaración y la firma ECDSA DER. Un resumen del documento no es una declaración del protocolo.
 
-[Instalación](installation.md) · [Protocolo autoritativo de Go](https://github.com/lambdawalker/go.apexfission.aws.signature/blob/feat/sworn-ink-signatures/docs/agents/protocol.md)
+[Instalación](../../IMPORT.md) · [Protocolo autoritativo de Go](https://github.com/lambdawalker/go.apexfission.aws.signature/blob/feat/sworn-ink-signatures/docs/agents/protocol.md)

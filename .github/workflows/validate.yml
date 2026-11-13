@@ -34,10 +34,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install pinned shared documentation CLI
+        run: ./docs.sh --version
+      - name: Check shared documentation contracts
+        run: |
+          ./docs.sh bootstrap check
+          ./docs.sh check
+          ./docs.sh history verify
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-      - run: python3 -m pip install -r sites/requirements.txt
       - run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - run: python3 scripts/docs.py verify
       - uses: actions/upload-artifact@v7

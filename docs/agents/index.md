@@ -14,4 +14,4 @@ No confirmed stable release exists. This guide covers the source tree, not a pub
 
 Critical invariants: use only the server-selected suite; use a fresh 32-byte nonce for registration; sign `Statement.encode()` with SHA256withECDSA; standard padded base64 for binary HTTP fields; issuer and subject bind ownership, never email. Preserve statement bytes and DER ECDSA signature bytes. Do not sign a document digest as though it were a protocol statement.
 
-[Installation facts](installation.md) · [Authoritative Go protocol](https://github.com/lambdawalker/go.apexfission.aws.signature/blob/feat/sworn-ink-signatures/docs/agents/protocol.md)
+[Installation facts](../../IMPORT.md) · [Authoritative Go protocol](https://github.com/lambdawalker/go.apexfission.aws.signature/blob/feat/sworn-ink-signatures/docs/agents/protocol.md)
