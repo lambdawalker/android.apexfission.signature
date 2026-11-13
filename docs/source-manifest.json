@@ -1,0 +1,8 @@
+{
+  "examples/integration/src/main/AndroidManifest.xml": "571f2735faf5e857752ee057ac8ef63425576a721616c60b86ee5d4c0a2d682f",
+  "examples/integration/src/main/kotlin/io/apexfission/signature/example/SigningIntegration.kt": "4fb38ac3a0a7cadde05d69b760a2f6a2bc36b69c4c4b750ae89a53597e4e3c56",
+  "protocol/src/main/kotlin/io/apexfission/signature/protocol/Statement.kt": "947fb604da934312c65236b2bc4682922e181a7db01929f401e3300dcc8e1ce5",
+  "signature/src/main/AndroidManifest.xml": "0e88ec0dee44b891359592c8c8921e24947ff0e835bbeb11a0ff053802373509",
+  "signature/src/main/kotlin/io/apexfission/signature/BiometricSigner.kt": "2d8ebf2a59c1635b58658b6fd0735042c6162acfdebc66f51c0dd8612356a2e1",
+  "signature/src/main/kotlin/io/apexfission/signature/HardwareKeys.kt": "375a7e2520ec190e16082f70e8a42f09318732602f766240ee69e296776b5440"
+}
