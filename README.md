@@ -12,7 +12,7 @@ Development Android library for P-256 statement signing with hardware attestatio
 
 ```sh
 ./gradlew :protocol:test :signature:lintDebug :signature:assembleDebug :signature:assembleDebugAndroidTest :examples:integration:assembleDebug
-python3 scripts/docs.py verify
+node tools/docs.mjs verify
 ```
 
 This is headless infrastructure. The operating system owns the biometric prompt; this project owns no Compose UI or screenshots. Hardware enforcement requires physical device validation. Cryptographic evidence does not establish legal identity or enforceability.

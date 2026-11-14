@@ -1,0 +1,39 @@
+schema: 1
+repository: lambdawalker/android.apexfission.signature
+title: Sworn Ink Android
+modules:
+  signature: Sworn Ink Android
+tooling_ref: 1da53392b262c7c3129d2bd645dfd7b34ead81e1
+site:
+  backend: astro
+  base_url: https://lambdawalker.github.io/android.apexfission.signature/
+  aliases:
+  - source: docs/agents/index.md
+    raw: "raw/{language}/{module}/{version}/index.md"
+  - source: IMPORT.md
+    html: "{language}/{module}/{version}/installation.html"
+    raw: "raw/{language}/{module}/{version}/installation.md"
+  - source: docs/agents/quickstart.md
+    html: "{language}/{module}/{version}/quickstart.html"
+    raw: "raw/{language}/{module}/{version}/quickstart.md"
+  - source: docs/agents/concepts.md
+    html: "{language}/{module}/{version}/concepts.html"
+    raw: "raw/{language}/{module}/{version}/concepts.md"
+  - source: docs/agents/api.md
+    html: "{language}/{module}/{version}/api.html"
+    raw: "raw/{language}/{module}/{version}/api.md"
+  - source: docs/agents/recipes.md
+    html: "{language}/{module}/{version}/recipes.html"
+    raw: "raw/{language}/{module}/{version}/recipes.md"
+  - source: docs/agents/troubleshooting.md
+    html: "{language}/{module}/{version}/troubleshooting.html"
+    raw: "raw/{language}/{module}/{version}/troubleshooting.md"
+  - source: docs/agents/migration.md
+    html: "{language}/{module}/{version}/migration.html"
+    raw: "raw/{language}/{module}/{version}/migration.md"
+  - source: docs/agents/limitations.md
+    html: "{language}/{module}/{version}/limitations.html"
+    raw: "raw/{language}/{module}/{version}/limitations.md"
+  - source: docs/agents/testing.md
+    html: "{language}/{module}/{version}/testing.html"
+    raw: "raw/{language}/{module}/{version}/testing.md"

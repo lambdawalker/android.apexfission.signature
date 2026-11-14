@@ -1,6 +1,6 @@
 # Inicio rápido — Desarrollo
 
-Use [Instalación](installation.md). El fixture compilado `SigningIntegration` define campos HTTP, validación de nonce, comparación exacta y copia del documento. El host implementa HTTPS `SwornInkApi` y `AccessTokens`; el servidor configura issuer/audience/scopes y paquete/firmante permitidos. No hay identidad simulada ni endpoint de correo.
+Use [Instalación](../../IMPORT.md). El fixture compilado `SigningIntegration` define campos HTTP, validación de nonce, comparación exacta y copia del documento. El host implementa HTTPS `SwornInkApi` y `AccessTokens`; el servidor configura issuer/audience/scopes y paquete/firmante permitidos. No hay identidad simulada ni endpoint de correo.
 
 En `onCreate` de FragmentActivity cree `HardwareKeys(applicationContext)` y una instancia `BiometricSigner(this, keys)`. La secuencia completa usa el fixture compilado. `worker` es un executor del host, que también presenta errores, aprobación del documento y persistencia. Autentique solo con actividad resumed. Preparación e inicio pueden lanzar excepciones; muéstrelas mediante la interfaz de errores del host.
 
