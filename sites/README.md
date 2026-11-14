@@ -1,22 +1,56 @@
 # Human documentation — Development
 
-The shared `android-repo-docs` CLI is pinned to corrective source commit `1da53392b262c7c3129d2bd645dfd7b34ead81e1` in `.project/docs/config.yaml` and the generated root launchers. [Shared tooling PR #37](https://github.com/lambdawalker/gradle.android-repo-setup/pull/37) supplies the migration aliases and filesystem staging fixes absent from the released v0.1.21 asset. Node.js 24 with npm, Python 3.12 and Rust/Cargo are documentation tooling prerequisites. The CLI owns Astro rendering, Markdown rewriting, language navigation, search, raw endpoints and commit provenance. Python has no third-party rendering dependencies.
+Documentation is built by the shared `android-repo-docs` CLI using Astro/Starlight.
+The exact source revision is pinned in `.project/docs/config.yaml` and the generated
+`docs.sh` / `docs.bat` launchers. Node.js 24 with npm and Rust/Cargo are required;
+there are no Python scripts, Python packages or repository-owned site renderer.
+
+The source pin `1da53392b262c7c3129d2bd645dfd7b34ead81e1` is deliberate: tagged CLI
+releases through v0.1.28 do not include all compatibility aliases and filesystem
+staging behavior required by this migration. The build uses the pinned source,
+not the binary version string alone. Do not replace it with a tag until these
+site/output contracts pass against that release.
 
 ```sh
-./docs.sh bootstrap check
-./docs.sh check
-python3 -m unittest discover -s scripts -p 'test_*.py'
-python3 scripts/docs.py verify
-python3 -m http.server 8000 --directory sites/dist
-# http://localhost:8000/en/signature/development/
+sh ./docs.sh --version
+sh ./docs.sh bootstrap check
+sh ./docs.sh check
+sh ./docs.sh history verify
+node --test tools/docs.test.mjs
+node tools/docs.mjs verify
+node tools/docs.mjs verify --base /android.apexfission.signature/
+sh ./docs.sh serve
 ```
 
-`python3 scripts/docs.py verify` checks the deliberately reviewed `docs/source-manifest.json`, Spanish freshness and identical code fences before calling the shared renderer. Shared `site.aliases` configuration adds compatibility redirects for the old `/<language>/signature/development/<guide>.html` URLs, exposes shared raw output to `/raw/<language>/signature/development/<guide>.md`, and preserves `catalog.json` through checked static metadata. The verifier checks exact build-commit provenance. The overview's `index.html` already exists at its old URL. The ten original guides remain available in both languages; the shared renderer also includes a Development-only releases boundary page. CI uploads `sites/dist` as an artifact and never deploys or publishes.
+Use `docs.bat` on Windows. The CLI owns rendering, Markdown preparation, scoped
+links, language navigation, search, raw output and build-commit provenance.
+`tools/docs.mjs` only checks this project's source-review manifest, reviewed Spanish
+hashes, identical code fences, no-release catalog and legacy/output contracts.
+It delegates the complete build to the pinned CLI. Unit tests deliberately mutate
+isolated source/translation fixtures to ensure unreviewed changes fail before
+rendering; they do not duplicate a Markdown or Astro implementation.
 
-Canonical guides live in `docs/agents`, with installation at root `IMPORT.md`; Spanish lives in `docs/es`, including `IMPORT.md`. Installation was relocated because the shared CLI reserves its installation route for `IMPORT.md`. Translation freshness now lives at the shared CLI's `docs/es/translations.json` path. Existing reviewed hashes were retained except for the two English pages whose installation link paths changed; Spanish received the same link-only edits. The source acceptance manifest is unchanged.
+Canonical guides live in `docs/agents`, installation at root `IMPORT.md`, and
+Spanish in `docs/es`. Installation was relocated because the shared CLI owns its
+installation route. Legacy `/<language>/signature/development/<guide>.html` human
+URLs and `/raw/<language>/signature/development/<guide>.md` endpoints remain valid.
+Both languages retain all ten original guides, plus the Development release
+boundary page. `catalog.json` matches the reviewed `docs/releases.json` exactly.
 
-After deliberately reviewing each Spanish page against its English source, run `python3 scripts/docs.py accept-translations`, inspect the manifest changes, then verify. Never refresh hashes to hide an untranslated source change. After reviewing guides against changed API/example inputs, use `python3 scripts/docs.py accept-source`. Missing/stale translations fall back to English from the same Development checkout during a build; verification deliberately rejects stale review state.
+After reviewing Spanish meaning against English, use
+`node tools/docs.mjs accept-translations`, inspect the changed hashes and verify.
+This command records review; it never translates text. After reviewing documentation
+against changed API/example input, use `node tools/docs.mjs accept-source`.
+Verification rejects stale review state. A build can demonstrate explicit English
+fallback from the same Development checkout; verification requires the reviewed
+Spanish pages to be fresh.
 
-The wrapper builds for a root-served artifact by default. Set `ANDROID_REPO_DOCS_BASE=/android.apexfission.signature/` when building for a project subpath. Use the wrapper when producing the final artifact so reviewed source/translation acceptance and the project output contracts are checked alongside shared rendering. `ANDROID_REPO_DOCS_BIN` can select a preinstalled binary built from the pinned corrective source instead of the launcher source build. This is a source pin, not a claim that the fixes are in the released v0.1.21 asset.
+The default verifier builds a root-served artifact. `--base` selects a project
+prefix, or `ANDROID_REPO_DOCS_BASE` supplies it. CI verifies both `/` and
+`/android.apexfission.signature/` and uploads separate complete site artifacts.
+A successful project-prefix artifact is ready for a separately authorized Pages
+deployment. Validation never deploys a site or publishes a library.
 
-There are no confirmed publications or immutable release archives. `docs/releases.json` records that boundary, and the verifier rejects adding confirmed releases without a separate migration. No visual browser inspection or physical-device result is implied. The library owns no UI screenshot target.
+There are no confirmed package publications or release archives. Source integration
+remains the installation method. Builds do not invent release history, physical
+device results or screenshot evidence; the library owns no UI screenshot target.

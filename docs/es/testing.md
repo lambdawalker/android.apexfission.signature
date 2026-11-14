@@ -6,7 +6,7 @@ Pruebas de host comparan bytes UTF-8 con prefijos contra el vector JSON comparti
 ./gradlew :protocol:test :signature:testDebugUnitTest :signature:lintDebug :signature:assembleDebug :signature:assembleDebugAndroidTest :examples:integration:assembleDebug
 # Physical API31+ device, enrolled strong biometric, secure lock screen:
 ./gradlew :signature:connectedDebugAndroidTest
-python3 scripts/docs.py verify
+node tools/docs.mjs verify
 ```
 
 Las pruebas pueden omitir escenarios si falta biometría inscrita; una omisión no demuestra cumplimiento. Emuladores no prueban confianza de hardware. No añada mecanismos para saltarse autenticación.

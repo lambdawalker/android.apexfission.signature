@@ -6,7 +6,7 @@ Host tests compare UTF-8 length-prefix bytes with the shared JSON vector (`proto
 ./gradlew :protocol:test :signature:testDebugUnitTest :signature:lintDebug :signature:assembleDebug :signature:assembleDebugAndroidTest :examples:integration:assembleDebug
 # Physical API31+ device, enrolled strong biometric, secure lock screen:
 ./gradlew :signature:connectedDebugAndroidTest
-python3 scripts/docs.py verify
+node tools/docs.mjs verify
 ```
 
 Instrumentation can skip biometric-dependent tests when prerequisites are missing. A skip is not evidence of enforcement. Emulators cannot establish hardware/attestation trust. Do not automate successful biometric authentication in production code or add an auth bypass for tests.

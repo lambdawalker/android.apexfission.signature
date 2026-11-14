@@ -2,7 +2,7 @@ name: Validate Development
 on:
   pull_request:
   push:
-    branches: [main, feat/sworn-ink-signatures]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -32,6 +32,14 @@ jobs:
             signature/build/outputs/apk/androidTest/
   docs:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: root
+            base: /
+          - target: project-pages
+            base: /android.apexfission.signature/
     steps:
       - uses: actions/checkout@v6
         with:
@@ -47,12 +55,13 @@ jobs:
           ./docs.sh bootstrap check
           ./docs.sh check
           ./docs.sh history verify
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.12'
-      - run: python3 -m unittest discover -s scripts -p 'test_*.py'
-      - run: python3 scripts/docs.py verify
+      - name: Test review acceptance and translated code contracts
+        run: node --test tools/docs.test.mjs
+      - name: Build and verify shared Astro documentation
+        env:
+          DOCS_BASE: ${{ matrix.base }}
+        run: node tools/docs.mjs verify --base "$DOCS_BASE"
       - uses: actions/upload-artifact@v7
         with:
-          name: development-human-and-agent-docs
+          name: development-human-and-agent-docs-${{ matrix.target }}
           path: sites/dist/
