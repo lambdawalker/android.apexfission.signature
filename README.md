@@ -16,3 +16,8 @@ node tools/docs.mjs verify
 ```
 
 This is headless infrastructure. The operating system owns the biometric prompt; this project owns no Compose UI or screenshots. Hardware enforcement requires physical device validation. Cryptographic evidence does not establish legal identity or enforceability.
+
+## License
+
+Project-owned code in all modules is licensed under the [Apache License 2.0](LICENSE).
+Third-party dependencies and bundled data retain their respective licenses and attribution notices.
